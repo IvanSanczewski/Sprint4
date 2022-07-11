@@ -1,5 +1,6 @@
-// const movies = require("./data");
+const movies = require("./data");
 
+// copia del array film con 22 películas
 const films = [
   {
     title: 'The Shawshank Redemption',
@@ -11,8 +12,7 @@ const films = [
   },
   {
     title: 'The Godfather',
-    year: 1994,
-    // year: 1972,
+    year: 1972,
     director: 'Francis Ford Coppola',
     duration: '2h 55min',
     genre: ['Crime', 'Drama'],
@@ -20,8 +20,7 @@ const films = [
   },
   {
     title: 'The Godfather: Part II',
-    // year: 1974,
-    year: 1994,
+    year: 1974,
     director: 'Francis Ford Coppola',
     duration: '3h 22min',
     genre: ['Crime', 'Drama'],
@@ -29,8 +28,7 @@ const films = [
   },
   {
     title: 'The Dark Knight',
-    // year: 2008,
-    year: 1994,
+    year: 2008,
     director: 'Christopher Nolan',
     duration: '2h 32min',
     genre: ['Action', 'Crime', 'Drama', 'Thriller'],
@@ -138,7 +136,8 @@ const films = [
   },
   {
     title: 'Goodfellas',
-    year: 1990,
+    // year: 1990,
+    year: 1994,
     director: 'Martin Scorsese',
     duration: '2h 26min',
     genre: ['Crime', 'Drama'],
@@ -146,7 +145,8 @@ const films = [
   },
   {
     title: 'The Matrix',
-    year: 1999,
+    // year: 1999,
+    year: 1994,
     director: 'Lana Wachowski',
     duration: '2h 16min',
     genre: ['Action', 'Sci-Fi'],
@@ -170,32 +170,71 @@ const films = [
   },
   {
     title: 'Cidade de Deus',
-    year: 2002,
+    // year: 2002,
+    year: 1994,
     director: 'Fernando Meirelles',
     duration: '2h 10min',
     genre: ['Crime', 'Drama'],
     score: 8.7
-  },
-  {
-    title: 'Se7en',
-    year: 1995,
-    director: 'David Fincher',
-    duration: '2h 7min',
-    genre: ['Crime', 'Drama', 'Mystery', 'Thriller'],
-    score: 8.6
-  }
-
-
+  }  
 ];
 
 
-const allDirectors = films.map(item => item.director);
-const directorsName = films.filter(item => item.director.includes('e'));
+// console.log(typeof allDirectors, allDirectors);
+// console.log(typeof directorsScores, directorsScores);
+// console.log(typeof scores, scores);
+// console.log(typeof totalScore, totalScore);
+// console.log(typeof finalScore, finalScore);
+// // console.log(typeof abcMovies, abcMovies);
+// console.log(typeof moviesByYear, moviesByYear);
+// console.log(typeof allGenreFilms, allGenreFilms);
+// console.log(typeof genreScores, genreScores);
+// console.log(typeof genreTotalScore, genreTotalScore);
+// console.log(typeof genreAverageSocre, genreAverageSocre);
 
-const directorsScores = films.filter(item => item.director.includes('Francis Ford Coppola'));
-const scores = directorsScores.map(item => item.score);
-const totalScore = scores.reduce((accumulatedFilmScores, actualFilmScore) => accumulatedFilmScores + actualFilmScore , 0);
-let finalScore = totalScore / scores.length;
+
+
+// // Exercise 1: Get the array of all directors
+// const allDirectors = films.map(item => item.director);
+
+// Exercise 1: Get the array of all directors
+function getAllDirectors(array) {
+  let result = array.map(item => item.director);
+  console.log("EXERCICE 1 ->", result);
+  return result;
+}
+
+// Exercise 2: Get the films of a certain director
+// const directorsName = films.filter(item => item.director.includes('Peter'));
+// console.log(typeof directorsName, directorsName);
+
+// Exercise 2: Get the films of a certain director
+function getMoviesFromDirector(array, director) {
+let result = array.filter(item => item.director === director);
+  console.log("EXERCICE 2 ->", result);
+  return result;
+}
+// getMoviesFromDirector(films, 'Francis Ford Coppola');
+
+// Exercise 3: Calculate the average of the films of a given director
+// const directorsScores = films.filter(item => item.director.includes('Francis Ford Coppola'));
+// const scores = directorsScores.map(item => item.score);
+// const totalScore = scores.reduce((accumulatedFilmScores, actualFilmScore) => accumulatedFilmScores + actualFilmScore , 0);
+// let finalScore = parseFloat((totalScore / scores.length).toFixed(2));
+
+
+
+
+// Exercise 3: Calculate the average of the films of a given director
+function moviesAverageOfDirector(array, director) {
+  const directorMovies = array.filter(item => item.director === director); //returns new array with all the movies according to the parameter 'director'
+  const directorMoviesScores = directorMovies.map(item => item.score); //returns new array containing all the 'score' values from the previous array
+  const directorMoviesScoresSum = directorMoviesScores.reduce((accumulatedScore, actualScore) => accumulatedScore + actualScore, 0); //returns a number with the sum of all the numbers from the array that was reduced
+  let result = parseFloat((directorMoviesScoresSum/directorMovies.length).toFixed(2));
+  console.log("EXERCICE 3 ->", result);
+  return result;
+}
+
 
 // Excercise 4
 // const abcMovies = films.sort(function(a, z) {
@@ -204,79 +243,85 @@ let finalScore = totalScore / scores.length;
 //   return 0;
 // });
 // abcMovies.splice(20)
-  
-  
-// Exercise 5: Order by year, ascending
+
+// Exercise 4:  Alphabetic order by title 
+function orderAlphabetically(array) {
+  const abcMoviesArray = [...array]; //the spread operator duplicates the original array to keep it the same thoroughly the whole function
+  const abcMoviesTitle = abcMoviesArray.map(item => item.title); //the map method returns a new array containig only the 'title' of previous objects
+  const abcMovies = abcMoviesTitle.sort(function(a, z) { //the sort method returns the previous array in alphabetical order
+    if (a.toLowerCase()< z.toLowerCase()) return -1; //Next three lines prevent possible sorting errors due to numbers and misspellings such as capital & lowercase characters wrongly introduced in the database
+    if (a.toLowerCase()> z.toLowerCase()) return 1;
+    return 0;
+});
+abcMovies.splice(20);
+
+// console.log(typeof array, array);
+// console.log(typeof abcMoviesArray, abcMoviesArray);
+// console.log(typeof abcMoviesTitle, abcMoviesTitle);
+// console.log(typeof abcMovies, abcMovies);
+console.log("EXERCICE 4 ->", abcMovies);
+return abcMovies;
+}
+// orderAlphabetically(films);
+
+
+// Exercise 5: Order by year, ascending. Es necesario comentar el ejercicio 4 ya que el método sort pasado al array films altera el array original; también se puede usar el spread operator para crear una copia y trabajar sobre el nuevo array
 // abcMovies;
-const moviesByYear = films.sort(function(a,z) {
-  return a.year - z.year;
-}); 
-  
-  
+// const moviesByYear = films.sort(function(a,z) {
+//   return a.year - z.year;
+// }); 
+// console.log(typeof moviesByYear, moviesByYear);
+
+// Exercise 5: Order by year, ascending
+function orderByYear(array) {
+  const newArray = [...array];
+  // const abcMovies = newArray.sort(function(a, z) { //the sort method returns the previous array in alphabetical order
+  //   if (a.title.toLowerCase()< z.title.toLowerCase()) return -1; //Next three lines prevent possible sorting errors due to numbers and misspellings such as capital & lowercase characters wrongly introduced in the database
+  //   if (a.title.toLowerCase()> z.title.toLowerCase()) return 1;
+  //   return 0;
+  // });
+
+  // const moviesByYear = abcMovies.sort(function(a, z) { //the sort method returns the previous array in alphabetical order
+  //   if (a.year < z.year) return -1; //Next three lines prevent possible sorting errors due to numbers and misspellings such as capital & lowercase characters wrongly introduced in the database
+  //   if (a.year > z.year) return 1;
+  //   return 0;
+  // });
+  // const moviesByYearAscendent = moviesByYear.reverse();  
+
+
+const moviesByYear = newArray.sort((function(a, z) { //the sort method returns the previous array in alphabetical order
+  if (a.title< z.title) return -1; //Next three lines prevent possible sorting errors due to numbers and misspellings such as capital & lowercase characters wrongly introduced in the database
+  if (a.title> z.title) return 1;
+})).sort(function(a, z) { //the sort method returns the previous array in alphabetical order
+  if (a.year < z.year) return -1; //Next three lines prevent possible sorting errors due to numbers and misspellings such as capital & lowercase characters wrongly introduced in the database
+  if (a.year > z.year) return 1;
+  return 0;
+});
+
+
+  // console.log(typeof abcMovies, abcMovies);
+  console.log(typeof moviesByYear, moviesByYear);
+  // console.log(typeof moviesByYearAscendent, moviesByYearAscendent);
+
+
+  // console.log("EXERCICE 5 ->", moviesByYearAscendent);
+  // console.log(typeof moviesByYear);
+  // return moviesByYearAscendent;
+  return moviesByYear;
+}
+// orderByYear(films);
+
+
 // Exercise 6: Calculate the average of the movies in a category
-const allGenreFilms = films.filter(item => item.genre.includes('Drama'));
-const genreScores = allGenreFilms.map(item => item.score);
+// const allGenreFilms = films.filter(item => item.genre.includes('Drama'));
+// const genreScores = allGenreFilms.map(item => item.score);
+// const genreTotalScore = genreScores.reduce((accumulatedFilmScores, actualFilmScore) => accumulatedFilmScores + actualFilmScore , 0);
+// let genreAverageSocre = parseFloat((genreTotalScore / genreScores.length).toFixed(2));
+
 
 // en la misma línea pasamos el método .map al array resultado de pasarle el método .filter con un .include al array originario
 // const xxx = films.filter(item => item.genre.includes('Drama')).map(item => item.score);
 // console.log(typeof xxx, xxx );
-
-const genreTotalScore = genreScores.reduce((accumulatedFilmScores, actualFilmScore) => accumulatedFilmScores + actualFilmScore , 0);
-let genreAverageSocre = (genreTotalScore / genreScores.length).toFixed(2);
-
-
-
-
-// console.log(typeof films, films);
-console.log(typeof allDirectors, allDirectors);
-console.log(typeof directorsName, directorsName);
-console.log(typeof directorsScores, directorsScores);
-console.log(typeof scores, scores);
-console.log(typeof totalScore, totalScore);
-console.log(typeof finalScore, finalScore);
-// console.log(typeof abcMovies, abcMovies);
-console.log(typeof moviesByYear, moviesByYear);
-
-
-console.log(typeof allGenreFilms, allGenreFilms);
-console.log(typeof genreScores, genreScores);
-console.log(typeof genreTotalScore, genreTotalScore);
-console.log(typeof genreAverageSocre, genreAverageSocre);
-
-// Exercise 1: Get the array of all directors.
-function getAllDirectors(films) {
-  let result = films.map(item => item.director);
-  console.log("EXERCICE 1 ->", result);
-  return result;
-}
-
-// Exercise 2: Get the films of a certain director
-function getMoviesFromDirector(array, director) {
-  let result = films.filter((item) => {item.director.includes('Ford')});
-  console.log("EXERCICE 2 ->", result);
-  return result;
-
-}
-
-// Exercise 3: Calculate the average of the films of a given director.
-function moviesAverageOfDirector(array, director) {
-  let directorMovies = films.filter((item) => {item.director.includes('Ford')});
-  let directorMoviesScores = directorMovies.map(item => item.score);
-  let directorMoviesScoresSum = directorMoviesScores.reduce((accumulatedScore, actualScore) => accumulatedScore + actualScore, 0);
-  let result = directorMoviesScoresSum / directorMoviesScores.length;
-  console.log("EXERCICE 3 ->", result);
-  return result;
-}
-
-// Exercise 4:  Alphabetic order by title 
-function orderAlphabetically(array) {
-  
-}
-
-// Exercise 5: Order by year, ascending
-function orderByYear() {
-
-}
 
 // Exercise 6: Calculate the average of the movies in a category
 function moviesAverageByCategory() {

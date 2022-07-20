@@ -1,13 +1,14 @@
 // const movies = require("./data");
 
 // copia del array film con 22 películas
-const films = [
+const films2 = [
   {
     title: 'The Shawshank Redemption',
     year: 1994,
     director: 'Frank Darabont',
     duration: '2h 22min',
-    genre: ['Crime', 'Drama'],
+    genre: 'Crime',
+    // genre: ['Crime', 'Drama'],
     score: 9.3
   },
   {
@@ -15,6 +16,37 @@ const films = [
     year: 1972,
     director: 'Francis Ford Coppola',
     duration: '2h 55min',
+    genre: 'Crime',
+    // genre: ['Crime', 'Drama'],
+    score: 9.2
+  },
+  {
+    title: 'The Godfather: Part II',
+    year: 1974,
+    director: 'Francis Ford Coppola',
+    duration: '3h 22min',
+    genre: 'Drama',
+    // genre: ['Crime', 'Drama'],
+    score: 9
+  }
+];
+
+const films3 = [
+  {
+    title: 'The Shawshank Redemption',
+    year: 1994,
+    director: 'Frank Darabont',
+    duration: '2h 22min',
+    // genre: 'Crime',
+    genre: ['Drama'],
+    score: 9.3
+  },
+  {
+    title: 'The Godfather',
+    year: 1972,
+    director: 'Francis Ford Coppola',
+    duration: '2h 55min',
+    // genre: 'Crime',
     genre: ['Crime', 'Drama'],
     score: 9.2
   },
@@ -23,10 +55,14 @@ const films = [
     year: 1974,
     director: 'Francis Ford Coppola',
     duration: '3h 22min',
+    // genre: 'Crime',
     genre: ['Crime', 'Drama'],
     score: 9
   }
 ];
+
+// console.log (films3);
+// console.log (films3[1].genre[0]);
 
 // const films = [
 //   {
@@ -269,7 +305,7 @@ function moviesAverageOfDirector(array, director) {
 
   return result;
 }
-moviesAverageOfDirector(films, 'Francis Ford Coppola');
+// moviesAverageOfDirector(films, 'Francis Ford Coppola');
 
 
 // Excercise 4
@@ -372,10 +408,11 @@ function moviesAverageByCategory(array, genre) {
   console.log(typeof genreAverageSocre, genreAverageSocre);
 
 
-  console.log("EXERCICE 5 ->", genreAverageSocre);
+  console.log("EXERCICE 6 ->", genreAverageSocre);
   return genreAverageSocre;
 }
-moviesAverageByCategory(films, 'Crime' );
+moviesAverageByCategory(films2, 'Crime' );
+moviesAverageByCategory(films3, 'Crime' );
 
 // Exercise 7: Modify the duration of movies to minutes
 function hoursToMinutes() {

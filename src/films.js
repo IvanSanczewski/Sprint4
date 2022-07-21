@@ -57,7 +57,7 @@ const films3 = [
     duration: '3h 22min',
     // genre: 'Crime',
     genre: ['Crime', 'Drama'],
-    score: 9
+    score: ''
   }
 ];
 
@@ -397,21 +397,16 @@ function orderByYear(array) {
 
 // Exercise 6: Calculate the average of the movies in a category
 function moviesAverageByCategory(array, genre) {
-  const allGenreFilms = array.filter(item => item.genre === genre);
-  const genreScores = allGenreFilms.map(item => item.score);
-  const genreTotalScore = genreScores.reduce((accumulatedFilmScores, actualFilmScore) => accumulatedFilmScores + actualFilmScore, 0);
-  let genreAverageSocre = parseFloat((genreTotalScore / allGenreFilms.length).toFixed(2));
+  const allGenreFilmsWithScore = array.filter(item => item.genre.includes(genre))
+  .filter(item => item.score !== '')
+  .map(item => item.score);
+  
+  const genreTotalScore = parseFloat((allGenreFilmsWithScore.reduce((accumulatedFilmScores, actualFilmScore) => accumulatedFilmScores + actualFilmScore, 0) / allGenreFilmsWithScore.length).toFixed(2))
 
-  console.log(typeof allGenreFilms, allGenreFilms);
-  console.log(typeof genreScores, genreScores);
-  console.log(typeof genreTotalScore, genreTotalScore);
-  console.log(typeof genreAverageSocre, genreAverageSocre);
-
-
-  console.log("EXERCICE 6 ->", genreAverageSocre);
-  return genreAverageSocre;
+  console.log("EXERCICE 6 ->", genreTotalScore);
+  return genreTotalScore;
 }
-moviesAverageByCategory(films2, 'Crime' );
+// moviesAverageByCategory(films2, 'Crime' );
 moviesAverageByCategory(films3, 'Crime' );
 
 // Exercise 7: Modify the duration of movies to minutes

@@ -411,7 +411,7 @@ function hoursToMinutes(array) {
       .filter(item => item.length === 8)
       .map(item => Number(item[0]*60) + Number(item[3]) + Number(item[4])));
 
-      
+
       // totalMinutes.push(item
       // .filter(item => item.length === 8)
       // .map(item => Number(item[0]*60) + Number(item[3]) + Number(item[4])))
@@ -487,10 +487,10 @@ function hoursToMinutes(array) {
 }
 hoursToMinutes(films3)
 
-// Exercise 8: Get the best film of a year
-function bestFilmOfYear() {
 
-}
+// * * * * * * * * * * * * *
+//prueba para el ejercicio 7
+// * * * * * * * * * * * * *
 
 const suma = [];
 const letras = ['12345678', '12345', '1234', '12'];
@@ -509,6 +509,19 @@ letras.forEach((letra) => {
   // console.log(typeof d, d)  
 }
 })
+
+// * * * * * * * * * * * * *
+//prueba para el ejercicio 7
+// * * * * * * * * * * * * *
+
+
+
+// Exercise 8: Get the best film of a year
+function bestFilmOfYear() {
+
+}
+
+
 
 console.log(typeof suma, suma);
 console.log(typeof letras, letras);

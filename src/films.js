@@ -70,7 +70,7 @@ let directorMovies = array.filter(item => item.director === director);
 
 // Exercise 3: Calculate the average of the films of a given director
 function moviesAverageOfDirector(array, director) {
-  const directorMovies = array.filter(item => item.director === director) //returns new array with all the movies according to the parameter 'director'
+  const directorMovies = getMoviesFromDirector(array, director) //returns new array with all the movies according to the parameter 'director'
   .map(item => item.score) //returns new array containing all the 'score' values from the previous array
   let directorScoreAverage = parseFloat((directorMovies
     .reduce((accumulatedScore, actualScore) => accumulatedScore + actualScore, 0)/directorMovies.length).toFixed(2));
@@ -125,107 +125,24 @@ function moviesAverageByCategory(array, genre) {
 }
 
 // Exercise 7: Modify the duration of movies to minutes
-function hoursToMinutes(array) {
-  // const d = array.map(item => item.duration.split(''));
-  const h = array.map(item => item.duration.split('h'))
-  .map(item => item[0]*60);
-  const m = array.map(item => item.duration.split('min'));
-  const n = m.map(item => item.splice(1,1))
-
-
-  console.log(array)
-  // console.log(d)
-  console.log(h)
-  console.log(m)
-  console.log(n)
-
-
+function hoursToMinutes(filmsArray) {
+  let minutes = [];
+  const convertToMinutes = hours => hours * 60;
+  let filmDurations = filmsArray.map(film => film.duration.split('h'));
+  filmDurations.forEach(film => {
+    let newDuration = {};
+    if(film.length > 1 && film[1].includes('min')) {
+      newDuration.duration = convertToMinutes(Number(film[0])) + Number(film[1].replace('min', ''));
+    } else if (film[0].includes('min')) {
+      newDuration.duration = Number(film[0].replace('min', ''));
+    } else {
+      newDuration.duration = convertToMinutes(Number(film[0])); 
+    }
+    minutes.push(newDuration);
+  });
+  console.log("EXERCICE 7 ->", minutes, typeof minutes[0], minutes[0] );
+  return minutes;
 }
-
-hoursToMinutes(films3)
-
-const numeros =  [[1,2],[3,4],[5,6]]
-// console.log(numeros[2][0])
-
-
-
-
-
-// function hoursToMinutes(array) {
-
-//   let totalMinutes = [];
-
-//   const durationDestructuring = array.map(item => item.duration.split(''));
-//   durationDestructuring.forEach((item) => {
-//     if (item.length === 8) {
-//       totalMinutes.push(durationDestructuring
-//       .filter(item => item.length === 8)
-//       .map(item => Number(item[0]*60) + Number(item[3]) + Number(item[4])));
-
-
-//       // totalMinutes.push(item
-//       // .filter(item => item.length === 8)
-//       // .map(item => Number(item[0]*60) + Number(item[3]) + Number(item[4])))
-//     } else if (item.length === 5) {
-//       totalMinutes.push(durationDestructuring
-//       .filter(item => item.length === 5)
-//       .map(item => Number(item[0]) + Number(item[1])));
-
-
-//       // totalMinutes.push(item
-//       // .filter(item => item.length === 5)
-//       // .map(item => Number(item[0]) + Number(item[1])))
-//     } else if (item.length === 4) {
-//       totalMinutes.push(durationDestructuring
-//       .filter(item => item.length === 4)
-//       .map(item => Number(item[0])));
-
-
-//       // totalMinutes.push(item
-//       // .filter(item => item.length === 4)
-//       // .map(item => Number(item[0])))
-//     } else if (item.length === 2) {
-//       totalMinutes.push(durationDestructuring
-//       .filter(item => item.length === 2)
-//       .map(item => Number((item[0]*60))));
-
-
-//       // totalMinutes.push(item
-//       // .filter(item => item.length === 2)
-//       // .map(item => (item[0]*60)))
-//     }
-//   })
-
-
-//   console.log(typeof durationDestructuring, durationDestructuring);
-//   console.log(typeof totalMinutes, totalMinutes);
-
-
-//   const totalHours = array.map(item => item.duration.split(''))
-//   .filter(item => item.length === 8)
-//   .map(item => (item[0]*60) + Number(item[3] + item[4]))
-
-//   // const totalHours = array.map(item => item.duration.split(''))
-//   // .filter(item => item.length === 5)
-//   // .map(item => (Number(item[0] + item[1])))
-
-//   // const totalHours = array.map(item => item.duration.split(''))
-//   // .filter(item => item.length === 4)
-//   // .map(item => (Number(item[0])))
-
-//   // const totalHours = array.map(item => item.duration.split(''))
-//   // .filter(item => item.length === 2)
-//   // .map(item => (item[0]*60));
-
-
-//   console.log(typeof array, array);
-//   console.log(typeof totalHours, totalHours);
-
-// }
-// hoursToMinutes(films3)
-
-
-
 
 // Exercise 8: Get the best film of a year
 function bestFilmOfYear(array, year) {
@@ -236,11 +153,10 @@ function bestFilmOfYear(array, year) {
     return 0
   }))
   .splice(0,1)
-
   console.log("EXERCICE 8 ->", yearHighScore);
   return yearHighScore;
 }
-bestFilmOfYear(films3, 1994)
+
 
 
 // The following is required to make unit tests work.

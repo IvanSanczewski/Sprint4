@@ -1,56 +1,4 @@
-// const movies = require("./data");
-
-const films3 = [
-  {
-    title: 'The Shawshank Redemption',
-    year: 1994,
-    director: 'Frank Darabont',
-    duration: '2h 22min',
-    // genre: 'Crime',
-    genre: ['Drama'],
-    score: 8.3
-    // score: 9.3
-  },
-  {
-    title: 'The Godfather',
-    year: 1994,
-    // year: 1972,
-    director: 'Francis Ford Coppola',
-    duration: '2h 55min',
-    // genre: 'Crime',
-    genre: ['Crime', 'Drama'],
-    score: 9.4
-  },
-  {
-    title: 'The Godfather: Part II',
-    year: 1994,
-    // year: 1974,
-    director: 'Francis Ford Coppola',
-    duration: '3h 22min',
-    // genre: 'Crime',
-    genre: ['Crime', 'Drama'],
-    score: ''
-  },
-  {
-    title: 'Platoon',
-    year: 1994,
-    // year: 1986,
-    director: 'Oliver Stone',
-    duration: '2h',
-    genre: ['Drama', 'War'],
-    score: 9.4
-  },
-  {
-    title: 'Blade Runner 2049',
-    year: 2017,
-    director: 'Denis Villeneuve',
-    duration: '9min',
-    // duration: '2h 44min',
-    genre: ['Mystery', 'Sci-Fi', 'Thriller'],
-    score: 8.5
-  }
-];
-// console.log (films3);
+const movies = require("./data");
 
 // Exercise 1: Get the array of all directors
 function getAllDirectors(array) {
@@ -111,6 +59,7 @@ function orderByYear(array) {
   return moviesByYear;
 }
 
+
 // Exercise 6: Calculate the average of the movies in a category
 function moviesAverageByCategory(array, genre) {
   const allGenreFilmsWithScore = array.filter(item => item.genre.includes(genre))
@@ -123,6 +72,7 @@ function moviesAverageByCategory(array, genre) {
   console.log("EXERCICE 6 ->", genreTotalScore);
   return genreTotalScore;
 }
+
 
 // Exercise 7: Modify the duration of movies to minutes
 function hoursToMinutes(filmsArray) {
@@ -144,6 +94,7 @@ function hoursToMinutes(filmsArray) {
   return minutes;
 }
 
+
 // Exercise 8: Get the best film of a year
 function bestFilmOfYear(array, year) {
   const yearHighScore = array.filter(item => item.year === year) //creates an array acording the year parameter
@@ -156,8 +107,6 @@ function bestFilmOfYear(array, year) {
   console.log("EXERCICE 8 ->", yearHighScore);
   return yearHighScore;
 }
-
-
 
 // The following is required to make unit tests work.
 /* Environment setup. Do not modify the below code. */
